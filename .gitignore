@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Ignore vk_client.py
+vk_auth_project/vk_client.py
