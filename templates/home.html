@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+    </style>
+    <meta charset="UTF-8">
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/cover.css" %}" rel="stylesheet">
+    <title>Home</title>
+</head>
+<body class="text-center">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead">
+        <div class="inner">
+
+            <a class="masthead-brand" href="{% url 'home' %}">MyProject</a>
+
+            <nav class="nav nav-masthead justify-content-center">
+                {% if user_name %}
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="nav-link" href="{{ vk_oauth_url }}">Login via VK</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main role="main" class="inner cover">
+        {% if user_name %}
+            <h1 class="cover-heading">Hello, {{ user_name }}</h1>
+            {% if friends %}
+                <p class="lead">Your friends: </p>
+                <div>
+                    {% for friend_by_three in friends %}
+                        <div class="row nickname mt-3">
+                            {% for friend in friend_by_three %}
+                                <div class="col-md-4">
+
+                                    {% for key, value in friend.items %}
+                                            {% if key == 'name' %}
+                                                <div class="row mt-3">
+                                                    <div class="col-md-4">
+                                                        {{ value }}
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="row mt-3">
+                                                    <div class="col-md-4">
+                                                        <img src="{{ value }}">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+
+                                    {% endfor %}
+                                </div>
+
+                            {% endfor %}
+                        </div>
+
+
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="lead">You don't have friends on VKontakte. Add them.</p>
+            {% endif %}
+        {% endif %}
+
+    </main>
+
+</div>
+
+
+{#        <a href="{% url 'logout' %}">logout</a>#}
+{#        {% else %}#}
+{#        <a href="{{ vk_oauth_url }}">login</a>#}
+{#    {% endif %}#}
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
