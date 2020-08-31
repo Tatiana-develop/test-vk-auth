@@ -23,8 +23,18 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')a6%jp(3g6s9r#kjvyvwmx4g=ra#ljhz%ag*=^yqh5mfq__s+z'
+SECRET_FILE = os.path.join(BASE_DIR, 'vk_auth_project/secret_key.txt')
+
+# SECRET_KEY = open(SECRET_FILE).read().strip()
+
+from vk_auth_project.secret_key_gen import secret_key_generator
+
+if not os.path.exists(SECRET_FILE):
+    with open(SECRET_FILE, 'w') as fw:
+        secret_key_generator()
+
+with open(SECRET_FILE, 'r') as f:
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
